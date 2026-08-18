@@ -46,6 +46,7 @@ class Game < ApplicationRecord
     ny = py + dy
     return if lvl.wall?(nx, ny)
 
+    descended = false
     monster = lvl.monsters.find_by(x: nx, y: ny)
     if monster
       attack_monster(monster)
@@ -53,9 +54,9 @@ class Game < ApplicationRecord
       self.px = nx
       self.py = ny
       pickup_item
-      descend_if_stairs
+      descended = descend_if_stairs
     end
-    monsters_turn unless status != "active"
+    monsters_turn unless status != "active" || descended
     save!
   end
 
@@ -107,7 +108,7 @@ class Game < ApplicationRecord
   end
 
   def descend_if_stairs
-    return unless current_level.stairs?(px, py)
+    return false unless current_level.stairs?(px, py)
 
     if depth >= goal_depth
       win!
@@ -115,6 +116,7 @@ class Game < ApplicationRecord
       self.depth += 1
       generate_level
     end
+    true
   end
 
   def take_damage(amount)
