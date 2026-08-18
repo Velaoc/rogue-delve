@@ -16,7 +16,11 @@ class Game < ApplicationRecord
   end
 
   def generate_level
-    lvl = levels.create!(depth: depth, grid: DungeonGenerator.generate)
+    lvl = levels.create!(depth: depth, grid: DungeonGenerator.generate.to_json)
+    sx, sy = DungeonGenerator.spawn_point(lvl.grid_rows)
+    self.px = sx
+    self.py = sy
+    save!
     lvl.place_entities(self)
   end
 
