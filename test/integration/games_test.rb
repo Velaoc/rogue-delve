@@ -24,7 +24,7 @@ class GamesIntegrationTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select ".rd-board"
     assert_select ".rd-cell", minimum: 100
-    assert_select "text()", /Vex/
+    assert_match(/Vex/, response.body)
   end
 
   test "a move request is accepted for an active game" do
@@ -46,7 +46,7 @@ class GamesIntegrationTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_select "h1", text: "RogueDelve"
-    assert_select "text()", /run is over/
+    assert_match(/run is over/, response.body)
   end
 
   test "leaderboard lists entries ranked by kills" do
@@ -56,7 +56,7 @@ class GamesIntegrationTest < ActionDispatch::IntegrationTest
     get leaderboard_path
 
     assert_response :success
-    assert_select "text()", /Top/
-    assert_select "text()", /Low/
+    assert_match(/Top/, response.body)
+    assert_match(/Low/, response.body)
   end
 end
