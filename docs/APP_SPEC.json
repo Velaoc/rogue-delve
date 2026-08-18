@@ -1,0 +1,78 @@
+{
+  "name": "RogueDelve",
+  "purpose": "A simple single-screen browser roguelike: procedurally generated dungeon levels, turn-based movement, lootable items, normal and special monsters, a definite end goal, and a kills-based top-scorer leaderboard.",
+  "actors": [
+    "Player (guest, plays runs in the browser, name recorded at run end)",
+    "Visitor (views the leaderboard)"
+  ],
+  "entities": [
+    {
+      "name": "Game",
+      "relationships": [
+        "belongs to a player name",
+        "has one current Level",
+        "has player state (hp, attack, position, inventory, kills, score)",
+        "status active/won/dead"
+      ]
+    },
+    {
+      "name": "Level",
+      "relationships": [
+        "belongs to a Game",
+        "has a generated grid of tiles (wall/floor/stairs)",
+        "has Monsters and Items placed on floor tiles"
+      ]
+    },
+    {
+      "name": "Monster",
+      "relationships": [
+        "belongs to a Level",
+        "is normal or special (elite/boss) with scaled stats",
+        "moves toward player on player turns"
+      ]
+    },
+    {
+      "name": "Item",
+      "relationships": [
+        "belongs to a Level",
+        "lootable on walk-over (healing potion, attack/defense buff, key)"
+      ]
+    },
+    {
+      "name": "ScoreEntry",
+      "relationships": [
+        "records player name, kills, score, depth reached, result (won/dead), created_at",
+        "powers the top-scorers leaderboard"
+      ]
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Start a run",
+      "description": "Player enters a name and starts a new game; dungeon level 1 generates with player, monsters, items, and stairs."
+    },
+    {
+      "name": "Move and fight",
+      "description": "Arrow/WASD moves the player turn by turn; stepping onto a monster attacks it; monsters take a turn after the player."
+    },
+    {
+      "name": "Loot items",
+      "description": "Walking over an item picks it up; potions heal, tomes buff attack, shields buff defense; inventory is shown."
+    },
+    {
+      "name": "Descend",
+      "description": "Walking onto stairs descends to the next generated level, deeper and harder."
+    },
+    {
+      "name": "Reach the goal and end the game",
+      "description": "Reaching the goal depth (defeating the final boss / claiming the artifact at depth 5) ends the run as a win; dying ends it as death; either way the run records a score entry."
+    },
+    {
+      "name": "View leaderboard",
+      "description": "Top scorers ranked by kills, showing name, kills, depth, score, and result."
+    }
+  ],
+  "modules": [],
+  "integrations": [],
+  "seed_demo": "A few sample ScoreEntries so the leaderboard is populated before anyone plays, and a fresh starter run demonstrating level 1 generation."
+}
