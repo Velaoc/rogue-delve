@@ -1,0 +1,75 @@
+/* RogueDelve dungeon board */
+.rd-board {
+  display: grid;
+  grid-template-columns: repeat(24, 1fr);
+  gap: 1px;
+  background: #1b1f27;
+  border: 1px solid #2b303b;
+  border-radius: 8px;
+  padding: 4px;
+  max-width: 560px;
+  margin: 0 auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  user-select: none;
+}
+
+.rd-cell {
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  line-height: 1;
+  border-radius: 2px;
+}
+
+.rd-wall   { background: #262b36; color: #4a5161; }
+.rd-floor  { background: #10131a; }
+.rd-stairs { background: #10131a; color: #ffd166; }
+.rd-monster { background: #2a1a1a; color: #ff6b6b; }
+.rd-boss   { background: #3a1020; color: #ff3b5c; font-weight: 700; }
+.rd-item   { background: #10241a; color: #7cf5a8; }
+.rd-player { background: #12263a; color: #64d2ff; font-weight: 700; }
+
+.rd-panel {
+  max-width: 560px;
+  margin: 12px auto 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.rd-dpad {
+  max-width: 560px;
+  margin: 16px auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, 56px);
+  grid-template-rows: repeat(2, 56px);
+  gap: 6px;
+  justify-content: center;
+}
+
+.rd-dpad button {
+  font-size: 22px;
+  border-radius: 10px;
+  border: 1px solid #2b303b;
+  background: #1b1f27;
+  color: #d7dde8;
+  cursor: pointer;
+}
+
+.rd-dpad button:hover { background: #262b36; }
+.rd-dpad .rd-up { grid-column: 2; }
+.rd-dpad .rd-left { grid-column: 1; grid-row: 2; }
+.rd-dpad .rd-down { grid-column: 2; grid-row: 2; }
+.rd-dpad .rd-right { grid-column: 3; grid-row: 2; }
+
+.rd-legend {
+  max-width: 560px;
+  margin: 10px auto 0;
+  text-align: center;
+  font-size: 13px;
+  color: #8b93a5;
+}
