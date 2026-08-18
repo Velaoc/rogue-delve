@@ -1,0 +1,21 @@
+<div class="rd-legend">
+  <h1 class="rd-title">RogueDelve</h1>
+  <p>Descend to depth <%= Game.new.goal_depth %>, loot potions, tomes and shields, cut down normal and elite monsters, and slay the Dungeon Lord to win. Your score is ranked by kills on the leaderboard.</p>
+</div>
+
+<div class="rd-legend">
+  <%= form_with model: @game, class: "rd-start" do |f| %>
+    <%= f.label :player_name, "Name your adventurer" %>
+    <%= f.text_field :player_name, placeholder: "Adventurer", maxlength: 30, required: true %>
+    <%= f.submit "Start the descent", class: "rd-start-btn" %>
+  <% end %>
+</div>
+
+<div class="rd-legend">Top scorers</div>
+<div class="rd-legend">
+  <% @top.each do |e| %>
+    <div><%= e.player_name %> — <%= e.kills %> kills, depth <%= e.depth %>, <%= e.score %> pts (<%= e.result %>)</div>
+  <% end %>
+</div>
+
+<div class="rd-legend"><%= link_to "Full leaderboard", leaderboard_path %></div>
