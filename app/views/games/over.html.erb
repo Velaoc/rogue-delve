@@ -1,0 +1,18 @@
+<div class="rd-legend">
+  <h1 class="rd-title">RogueDelve</h1>
+  <p>Your run is over.</p>
+</div>
+
+<% if @game.status == "won" %>
+  <div class="rd-legend rd-won">You claimed the Dungeon Lord's hoard and escaped the deep. Victory!</div>
+<% else %>
+  <div class="rd-legend rd-dead">You died on depth <%= @game.depth %>. The dungeon keeps your bones.</div>
+<% end %>
+
+<div class="rd-legend">
+  <strong><%= @game.player_name %></strong> · <%= @game.kills %> kills · <%= @game.score %> points
+</div>
+
+<div class="rd-legend">
+  <%= link_to "Play again", new_game_path %> · <%= link_to "Leaderboard", leaderboard_path %>
+</div>
