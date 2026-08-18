@@ -130,6 +130,10 @@ Rails.application.routes.draw do
     get "session", to: "sessions#show", as: :session
   end
 
-  # Minimal landing page until the M7 marketing set replaces it.
-    root "foundation/home#show"
+  # RogueDelve: guest-first single-screen roguelike.
+  root "games#new"
+  resources :games, only: %i[new create show] do
+    post :move, on: :member
+  end
+  get "leaderboard", to: "games#leaderboard", as: :leaderboard
 end
