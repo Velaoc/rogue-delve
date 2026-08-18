@@ -1,0 +1,50 @@
+<%= content_for :head do %>
+  <%= stylesheet_link_tag "game", "data-turbo-track": "reload" %>
+<% end %>
+
+<div class="rd-legend">@ you · m monster · M elite/boss · ! potion · + tome · = shield · K key · &gt; stairs</div>
+<div class="rd-legend" data-controller="game" data-status="<%= @game.status %>">
+  <form data-game-target="form" action="<%= game_move_path(@game) %>" method="post" class="hidden">
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <input type="hidden" data-game-target="dx" name="dx" value="0">
+    <input type="hidden" data-game-target="dy" name="dy" value="0">
+  </form>
+  <div class="rd-panel">
+    <strong><%= @game.player_name %></strong>
+    <span>❤ <%= @game.hp %>/<%= @game.max_hp %></span>
+    <span>⚔ <%= @game.attack %></span>
+    <span>🛡 <%= @game.defense %></span>
+    <span>Depth <%= @game.depth %>/<%= @game.goal_depth %></span>
+    <span>💀 <%= @game.kills %></span>
+    <span>★ <%= @game.score %></span>
+  </div>
+  <div class="rd-board" role="grid" aria-label="Dungeon">
+    <% @board.each_with_index do |row, y| %>
+      <% row.each_with_index do |cell, x| %>
+        <div class="rd-cell <%= cell_class(cell) %>" role="gridcell" aria-label="<%= cell_label(cell, x, y) %>"><%= cell %></div>
+      <% end %>
+    <% end %>
+  </div>
+  <% if @game.status == "active" %>
+    <div class="rd-dpad">
+      <button class="rd-up" type="button" data-action="game#setDirection" data-move="[0,-1]" aria-label="Move up">▲</button>
+      <button class="rd-left" type="button" data-action="game#setDirection" data-move="[-1,0]" aria-label="Move left">◀</button>
+      <button class="rd-down" type="button" data-action="game#setDirection" data-move="[0,1]" aria-label="Move down">▼</button>
+      <button class="rd-right" type="button" data-action="game#setDirection" data-move="[1,0]" aria-label="Move right">▶</button>
+    </div>
+  <% end %>
+  <div class="rd-panel">
+    <span><strong>Inventory:</strong> <%= @game.inventory.blank? ? "empty" : @game.inventory.split(",").map { |i| i.humanize }.join(", ") %></span>
+  </div>
+</div>
+
+<div class="rd-legend">Top scorers</div>
+<div class="rd-legend">
+  <% @top.each do |e| %>
+    <div><%= e.player_name %> — <%= e.kills %> kills, depth <%= e.depth %>, <%= e.score %> pts (<%= e.result %>)</div>
+  <% end %>
+</div>
+
+<div class="rd-legend">
+  <%= link_to "Leaderboard", leaderboard_path %> · <%= link_to "New run", new_game_path %>
+</div>
