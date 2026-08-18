@@ -73,3 +73,45 @@
   font-size: 13px;
   color: #8b93a5;
 }
+
+.rd-title {
+  font-size: 28px;
+  font-weight: 800;
+  margin: 24px 0 8px;
+  color: #e8ecf4;
+}
+
+.rd-start {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  margin: 16px 0;
+}
+
+.rd-start input[type="text"] {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #2b303b;
+  background: #10131a;
+  color: #d7dde8;
+  min-width: 220px;
+  text-align: center;
+}
+
+.rd-start-btn {
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: none;
+  background: #64d2ff;
+  color: #0b1220;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.rd-start-btn:hover { background: #8bdeff; }
+
+.rd-won { color: #7cf5a8; font-weight: 700; }
+.rd-dead { color: #ff6b6b; font-weight: 700; }
+
+.hidden { display: none; }
