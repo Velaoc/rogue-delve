@@ -12,6 +12,8 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
+    return render(:over) unless @game.status == "active"
+
     @board = @game.view_grid
     @top = ScoreEntry.order(kills: :desc, score: :desc).limit(5)
   end
