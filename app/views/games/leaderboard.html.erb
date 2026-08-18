@@ -1,0 +1,12 @@
+<div class="rd-legend">
+  <h1 class="rd-title">Leaderboard</h1>
+  <p>Top scorers ranked by kills.</p>
+</div>
+
+<div class="rd-legend">
+  <% @entries.each_with_index do |e, i| %>
+    <div><strong>#<%= i + 1 %></strong> <%= e.player_name %> — <%= e.kills %> kills, depth <%= e.depth %>, <%= e.score %> pts (<%= e.result %>) · <%= e.created_at.strftime("%Y-%m-%d") %></div>
+  <% end %>
+</div>
+
+<div class="rd-legend"><%= link_to "Play RogueDelve", new_game_path %></div>
